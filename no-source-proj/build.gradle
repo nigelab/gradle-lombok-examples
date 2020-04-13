@@ -1,6 +1,9 @@
 import io.franzbecker.gradle.lombok.task.DelombokTask
 
 task delombok(type: DelombokTask, dependsOn: compileJava) {
+    onlyIf {
+        sourceSets.main.java.srcDirs.find().exists()
+    }
     ext.outputDir = file("$buildDir/delombok")
     outputs.dir(outputDir)
     sourceSets.main.java.srcDirs.each {
@@ -17,3 +20,12 @@ javadoc {
     source = delombok.outputDir
     failOnError = false
 }
+
+//delombok.onlyIf {
+//    sourceSets.main.java.srcDirs.find().exists()
+//}
+//tasks.withType(DelombokTask) {
+//    onlyIf {
+//        sourceSets.main.java.srcDirs.find().exists()
+//    }
+//}
