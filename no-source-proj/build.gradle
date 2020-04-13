@@ -2,7 +2,7 @@ import io.franzbecker.gradle.lombok.task.DelombokTask
 
 task delombok(type: DelombokTask, dependsOn: compileJava) {
     onlyIf {
-        sourceSets.main.java.srcDirs.find().exists()
+        sourceSets.main.java.srcDirs.any { it.exists() }
     }
     ext.outputDir = file("$buildDir/delombok")
     outputs.dir(outputDir)
